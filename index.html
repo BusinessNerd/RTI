@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retune Idaho | Reclaim. Repair. Resonate.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --brand-navy: #000080;
+            --brand-blue: #0066CC;
+            --bone: #FDFBF7;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bone);
+            color: #111827;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, .serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .text-brand-navy { color: var(--brand-navy); }
+        .text-brand-blue { color: var(--brand-blue); }
+        .bg-brand-navy { background-color: var(--brand-navy); }
+        .bg-brand-blue { background-color: var(--brand-blue); }
+        
+        .staff-container {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            width: 100%;
+            max-width: 300px;
+        }
+        .staff-line {
+            height: 1px;
+            background: #E5E7EB;
+            width: 100%;
+        }
+
+        .hero-banner {
+            background: #FFFFFF;
+            padding-top: 3rem;
+            padding-bottom: 7rem;
+        }
+
+        .logo-text {
+            font-size: clamp(3rem, 12vw, 94px); /* Fixed bootstrapping for mobile */
+            letter-spacing: -4px;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 128, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: var(--brand-navy);
+            color: #fff;
+            text-align: center;
+            border-radius: 50px;
+            padding: 16px;
+            position: fixed;
+            z-index: 2000;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        #toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        button:active { transform: scale(0.96); }
+
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+    </style>
+</head>
+<body class="antialiased selection:bg-blue-100">
+
+    <div id="toast">Link Copied!</div>
+
+    <div class="bg-brand-navy text-white py-3 px-6 relative z-50">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-4 text-xs md:text-sm text-center">
+            <div class="font-bold tracking-widest uppercase">
+                <span>✨ Established 2026 — 501(c)(3) Approval Pending ✨</span>
+            </div>
+            <div id="waitlistWrapper" class="flex items-center">
+                <form id="waitlistForm" class="flex bg-white/10 rounded-full p-1 border border-white/20 w-full max-w-sm">
+                    <input type="email" name="email" required placeholder="Join the launch list" class="bg-transparent border-0 px-4 py-1 text-xs w-full focus:ring-0 outline-none placeholder:text-white/50">
+                    <button type="submit" id="waitlistBtn" class="bg-white text-brand-navy px-4 py-1 rounded-full font-black uppercase text-[10px] hover:bg-brand-blue hover:text-white transition-colors">Join</button>
+                </form>
+                <div id="waitlistStatus" class="hidden font-bold text-blue-300 ml-3 animate-pulse uppercase text-[10px]">Added!</div>
+            </div>
+        </div>
+    </div>
+
+    <header class="hero-banner px-6">
+        <div class="max-w-7xl mx-auto text-center">
+            <div class="flex items-center justify-center gap-12 mb-20">
+                <div class="staff-container hidden lg:flex"><div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div></div>
+                <div class="shrink-0 flex flex-col items-center">
+                    <div class="logo-text leading-none flex items-baseline">
+                        <span class="font-bold text-brand-navy">Re</span><span class="font-normal text-brand-blue">tune</span>
+                    </div>
+                    <div class="text-gray-400 font-medium tracking-[1em] uppercase text-xl mt-2 ml-[1em]">Idaho</div>
+                </div>
+                <div class="staff-container hidden lg:flex"><div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div></div>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-navy leading-tight">
+                    Empowering the Next Generation of Musicians Through 
+                    <span class="italic font-serif font-light text-brand-blue block mt-2">restoration and giving.</span>
+                </h1>
+                
+                <div class="h-[2px] w-20 bg-brand-navy mx-auto my-10"></div>
+                
+                <div class="flex flex-col items-center gap-8">
+                    <div class="flex justify-center items-center gap-x-6 md:gap-x-12 text-md md:text-xl uppercase tracking-[0.4em] font-extrabold text-brand-navy">
+                        <span>Reclaim</span> <span class="text-gray-200">/</span> <span>Repair</span> <span class="text-gray-200">/</span> <span>Resonate</span>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button onclick="openModal('donationModal')" class="bg-brand-navy text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-brand-blue transition-colors shadow-lg">Donate an Instrument</button>
+                        <button onclick="openModal('financialModal')" class="bg-white text-brand-navy border-2 border-brand-navy px-8 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-gray-50 transition-colors">Support Financially</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-24 px-6 bg-white border-y border-gray-100">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="text-lg md:text-xl font-black tracking-[0.5em] uppercase text-brand-blue mb-4">The Cycle of Equity</h2>
+                <p class="text-3xl md:text-5xl font-light text-brand-navy serif italic">Turning unplayed instruments into community value.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="bg-gray-50 p-10 rounded-[2.5rem] border border-gray-100">
+                    <div class="text-5xl mb-6">🎷</div>
+                    <h4 class="font-bold text-brand-navy uppercase tracking-widest text-sm mb-4">01. Reclaim</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">We take forgotten instruments out of closets and attics, providing a path for donors to give back to their community.</p>
+                </div>
+                <div class="bg-brand-navy p-10 rounded-[2.5rem] text-white shadow-2xl">
+                    <div class="text-5xl mb-6">🛠️</div>
+                    <h4 class="font-bold text-blue-300 uppercase tracking-widest text-sm mb-4">02. Repair</h4>
+                    <p class="text-white/80 text-sm leading-relaxed">We invest in local small businesses by hiring Idaho technicians to restore every instrument to professional standards.</p>
+                </div>
+                <div class="bg-gray-50 p-10 rounded-[2.5rem] border border-gray-100">
+                    <div class="text-5xl mb-6">🎵</div>
+                    <h4 class="font-bold text-brand-navy uppercase tracking-widest text-sm mb-4">03. Resonate</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">The final note. We gift restored instruments to students who have the drive but lack the financial means to play.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white pt-32 pb-16 px-6 border-t border-gray-100 text-center">
+        <h2 class="text-6xl md:text-8xl font-black mb-12 text-brand-navy tracking-tighter">Play your part.</h2>
+        <p class="text-gray-400 text-xs uppercase font-bold tracking-widest mb-8">Retune Idaho is a Nampa-based non-profit | 501(c)(3) Status: Approval Pending</p>
+        <div class="flex flex-col items-center gap-4">
+            <button onclick="copyToClipboard()" class="text-brand-navy font-bold uppercase text-xs tracking-widest border-b-2 border-brand-navy pb-1">Copy Site Link</button>
+            <p class="text-gray-500 text-sm mt-4">hello@retuneidaho.org • 208-546-9446</p>
+        </div>
+    </footer>
+
+    <div id="donationModal" class="modal-overlay" onclick="closeModals(event)">
+        <div class="bg-white w-full max-w-lg rounded-3xl p-8 shadow-2xl relative mx-4" onclick="event.stopPropagation()">
+            <button onclick="closeModals()" class="absolute top-6 right-6 text-gray-400">&times;</button>
+            <h3 class="text-2xl font-bold text-brand-navy serif mb-2">Instrument Donation</h3>
+            <p class="text-xs text-brand-blue font-bold uppercase mb-4">Note: We are not accepting physical donations yet. This form helps us coordinate our 2026 launch.</p>
+            <form id="donationForm" class="space-y-4">
+                <input type="text" name="name" required placeholder="Name" class="w-full bg-gray-50 rounded-xl p-4 outline-none">
+                <input type="text" name="contact" required placeholder="Email or Phone" class="w-full bg-gray-50 rounded-xl p-4 outline-none">
+                <input type="text" name="instrument" placeholder="Instrument Type (e.g. Trumpet)" required class="w-full bg-gray-50 rounded-xl p-4 outline-none">
+                <button type="submit" id="submitBtn" class="w-full bg-brand-navy text-white font-bold uppercase p-4 rounded-xl">Join the Donation Queue</button>
+                <div id="formStatus" class="hidden text-center p-3 rounded-xl text-xs font-bold mt-4"></div>
+            </form>
+        </div>
+    </div>
+
+    <div id="financialModal" class="modal-overlay" onclick="closeModals(event)">
+        <div class="bg-white w-full max-w-lg rounded-3xl p-8 shadow-2xl relative mx-4" onclick="event.stopPropagation()">
+            <button onclick="closeModals()" class="absolute top-6 right-6 text-gray-400">&times;</button>
+            <h3 class="text-2xl font-bold text-brand-navy serif mb-2">Support Financially</h3>
+            <p class="text-xs text-brand-blue font-bold uppercase mb-4">Pledges are non-binding and help us secure our 501(c)(3) launch funding.</p>
+            <form id="moneyForm" class="space-y-4">
+                <input type="text" name="name" required placeholder="Name" class="w-full bg-gray-50 rounded-xl p-4 outline-none">
+                <input type="email" name="email" required placeholder="Email Address" class="w-full bg-gray-50 rounded-xl p-4 outline-none">
+                <input type="number" name="amount" placeholder="Pledge Amount ($)" required class="w-full bg-gray-50 rounded-xl p-4 outline-none">
+                <button type="submit" id="moneySubmitBtn" class="w-full bg-brand-blue text-white font-bold uppercase p-4 rounded-xl">Pledge Support</button>
+                <div id="moneyStatus" class="hidden text-center p-3 rounded-xl text-xs font-bold mt-4"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Global UI Controls
+        window.openModal = (id) => document.getElementById(id).style.display = 'flex';
+        window.closeModals = (e) => {
+            if (!e || e.target.classList.contains('modal-overlay') || e.target.innerText === '×') {
+                document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none');
+            }
+        };
+
+        window.copyToClipboard = () => {
+            navigator.clipboard.writeText(window.location.href);
+            const t = document.getElementById("toast");
+            t.className = "show";
+            setTimeout(() => t.className = "", 3000);
+        };
+
+        // Form Handling Logic (Works without Firebase)
+        const setupForm = (formId, btnId, statusId) => {
+            const form = document.getElementById(formId);
+            if (!form) return;
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const btn = document.getElementById(btnId);
+                const status = document.getElementById(statusId);
+                
+                btn.disabled = true;
+                btn.innerText = "Processing...";
+
+                // This simulates a successful submission for your GitHub preview
+                setTimeout(() => {
+                    status.innerText = "Success! We've added you to our launch list.";
+                    status.className = "block text-center p-3 rounded-xl text-xs font-bold bg-green-50 text-green-600 mt-4 uppercase";
+                    status.classList.remove('hidden');
+                    form.reset();
+
+                    setTimeout(() => {
+                        if (formId !== 'waitlistForm') window.closeModals();
+                        status.classList.add('hidden');
+                        btn.disabled = false;
+                        btn.innerText = formId === 'moneyForm' ? "Pledge Support" : (formId === 'waitlistForm' ? "Join" : "Submit");
+                    }, 2500);
+                }, 800);
+            });
+        };
+
+        setupForm('donationForm', 'submitBtn', 'formStatus');
+        setupForm('moneyForm', 'moneySubmitBtn', 'moneyStatus');
+        setupForm('waitlistForm', 'waitlistBtn', 'waitlistStatus');
+    </script>
+</body>
+</html>
