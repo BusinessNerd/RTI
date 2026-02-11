@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReTune Idaho | Reclaim. Repair. Resonate.</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --brand-navy: #000080;
+            --brand-blue: #0066CC;
+            --bone: #FDFBF7;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bone);
+            color: #111827;
+            scroll-behavior: smooth;
+        }
+        h1, h2, h3, .serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .text-brand-navy { color: var(--brand-navy); }
+        .text-brand-blue { color: var(--brand-blue); }
+        .bg-brand-navy { background-color: var(--brand-navy); }
+        .bg-brand-blue { background-color: var(--brand-blue); }
+        
+        .staff-container {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            width: 100%;
+            max-width: 300px;
+        }
+        .staff-line {
+            height: 1px;
+            background: #E5E7EB;
+            width: 100%;
+        }
+
+        .hero-banner {
+            background: #FFFFFF;
+            padding-top: 3rem;
+            padding-bottom: 7rem;
+        }
+
+        .mission-heading {
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+
+        .swag-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .swag-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 128, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-blue-100">
+
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="bg-brand-navy text-white py-3 px-6 overflow-hidden relative">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-4 text-xs md:text-sm">
+            <div class="flex items-center gap-2 font-bold tracking-widest uppercase">
+                <span class="opacity-50">✨</span>
+                <span>We're just getting warmed up</span>
+                <span class="opacity-50">✨</span>
+            </div>
+            <form id="waitlistForm" class="flex bg-white/10 rounded-full p-1 border border-white/20 w-full max-w-sm">
+                <input type="email" name="email" required placeholder="Join the waitlist (Email)" class="bg-transparent border-0 px-4 py-1 text-xs w-full focus:ring-0 outline-none placeholder:text-white/50">
+                <button type="submit" id="waitlistBtn" class="bg-white text-brand-navy px-4 py-1 rounded-full font-black uppercase text-[10px] hover:bg-brand-blue hover:text-white transition-colors">
+                    Join
+                </button>
+            </form>
+            <div id="waitlistStatus" class="hidden font-bold text-blue-300">Added!</div>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <header class="hero-banner px-6">
+        <div class="max-w-7xl mx-auto text-center">
+            
+            <!-- Logo with Staff Lines -->
+            <div class="flex items-center justify-center gap-12 mb-20">
+                <div class="staff-container hidden md:flex">
+                    <div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div>
+                </div>
+                <div class="shrink-0">
+                    <svg width="220" height="100" viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
+                      <g font-family="'Inter', sans-serif" text-anchor="middle">
+                        <text x="200" y="80">
+                            <tspan font-weight="600" fill="#000080" font-size="94" letter-spacing="-4">Re</tspan>
+                            <tspan font-weight="400" fill="#0066CC" font-size="94" letter-spacing="-4">tune</tspan>
+                        </text>
+                        <text x="200" y="138" font-weight="500" fill="#9CA3AF" font-size="28" style="letter-spacing:16px;text-transform:uppercase">
+                          Idaho
+                        </text>
+                      </g>
+                    </svg>
+                </div>
+                <div class="staff-container hidden md:flex">
+                    <div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div>
+                </div>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <h1 class="mission-heading text-4xl md:text-5xl lg:text-6xl font-bold text-brand-navy">
+                    <span class="block">Empowering the Next</span>
+                    <span class="block">Generation of</span>
+                    <span class="block">Musicians Through</span>
+                    <span class="italic font-serif font-light text-brand-blue block mt-2">restoration and giving.</span>
+                </h1>
+                
+                <div class="h-[2px] w-20 bg-brand-navy mx-auto my-10"></div>
+                
+                <div class="flex flex-col items-center gap-8">
+                    <div class="flex justify-center items-center gap-x-6 md:gap-x-12 text-md md:text-xl uppercase tracking-[0.4em] font-extrabold text-brand-navy">
+                        <span>Reclaim</span>
+                        <span class="text-gray-200">/</span>
+                        <span>Repair</span>
+                        <span class="text-gray-200">/</span>
+                        <span>Resonate</span>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button onclick="openInstrumentModal()" class="bg-brand-navy text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-brand-blue transition-colors shadow-lg">
+                            Donate an Instrument
+                        </button>
+                        <button onclick="openFinancialModal()" class="bg-white text-brand-navy border-2 border-brand-navy px-8 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-gray-50 transition-colors">
+                            Support Financially
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- LEGACY FOUNDING DONORS -->
+    <section class="py-24 px-6 bg-gray-50/50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-brand-navy serif mb-4">Legacy Founding Donors</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto italic font-medium">Join us as a Founding Partner during our startup phase.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                
+                <!-- STUDIO PARTNER -->
+                <div class="swag-card bg-white p-8 rounded-3xl border border-gray-100 shadow-sm flex flex-col h-full">
+                    <div class="aspect-square bg-white rounded-2xl mb-8 overflow-hidden flex items-center justify-center">
+                        <img src="https://api.screenshotone.com/take?url=https%3A%2F%2Fstorage.googleapis.com%2Fimage-gen-content%2F0.png&viewport_width=400&viewport_height=400&clip_x=0&clip_y=0&clip_width=400&clip_height=400" alt="ReTune Polishing Cloth" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="text-2xl font-bold text-brand-navy mb-2">Studio Partner</h4>
+                    <p class="text-sm text-gray-500 mb-8 flex-grow leading-relaxed">Pledge $50+ to cover initial consumables—reeds, valve oil, and cork grease—that get an instrument back in a student's hands.</p>
+                    <div class="pt-6 border-t border-gray-100">
+                        <span class="inline-block text-[10px] font-black uppercase tracking-[0.2em] text-brand-blue bg-blue-50 px-4 py-2 rounded-full">Swag: Polishing Cloth</span>
+                    </div>
+                </div>
+
+                <!-- ENSEMBLE PARTNER -->
+                <div class="swag-card bg-white p-8 rounded-3xl border-2 border-brand-blue/20 shadow-xl flex flex-col h-full relative">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-blue text-white text-[10px] font-black px-6 py-2 uppercase tracking-[0.3em] rounded-full shadow-lg">Most Needed</div>
+                    <div class="aspect-square bg-white rounded-2xl mb-8 overflow-hidden flex items-center justify-center">
+                        <img src="https://api.screenshotone.com/take?url=https%3A%2F%2Fstorage.googleapis.com%2Fimage-gen-content%2F0.png&viewport_width=400&viewport_height=400&clip_x=400&clip_y=0&clip_width=400&clip_height=400" alt="ReTune Trucker Hat" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="text-2xl font-bold text-brand-navy mb-2">Ensemble Partner</h4>
+                    <p class="text-sm text-gray-500 mb-8 flex-grow leading-relaxed">Pledge $250+ to fund a professional technician's full restoration of a brass, woodwind, or string instrument.</p>
+                    <div class="pt-6 border-t border-gray-100">
+                        <span class="inline-block text-[10px] font-black uppercase tracking-[0.2em] text-brand-blue bg-blue-50 px-4 py-2 rounded-full">Swag: Trucker Hat</span>
+                    </div>
+                </div>
+
+                <!-- CONSERVATORY PARTNER -->
+                <div class="swag-card bg-white p-8 rounded-3xl border border-gray-100 shadow-sm flex flex-col h-full">
+                    <div class="aspect-square bg-white rounded-2xl mb-8 overflow-hidden flex items-center justify-center">
+                        <img src="https://api.screenshotone.com/take?url=https%3A%2F%2Fstorage.googleapis.com%2Fimage-gen-content%2F0.png&viewport_width=400&viewport_height=400&clip_x=800&clip_y=0&clip_width=400&clip_height=400" alt="ReTune Hoodie" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="text-2xl font-bold text-brand-navy mb-2">Conservatory Partner</h4>
+                    <p class="text-sm text-gray-500 mb-8 flex-grow leading-relaxed">Pledge $1,000+ to help us establish our initial scholarship fund, ensuring no student is turned away due to financial barriers.</p>
+                    <div class="pt-6 border-t border-gray-100">
+                        <span class="inline-block text-[10px] font-black uppercase tracking-[0.2em] text-brand-blue bg-blue-50 px-4 py-2 rounded-full">Swag: Light Gray Hoodie</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button onclick="openFinancialModal()" class="bg-brand-navy text-white px-12 py-5 rounded-full font-black uppercase tracking-widest hover:bg-brand-blue transition-all shadow-xl hover:-translate-y-1">
+                    Pledge Your Support
+                </button>
+                <p class="mt-6 text-[10px] text-gray-400 font-bold uppercase tracking-[0.3em]">Pledges are for planning purposes • No payment processed today</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE CYCLE OF EQUITY -->
+    <section class="py-24 px-6 bg-white border-y border-gray-100">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="text-lg md:text-xl font-black tracking-[0.5em] uppercase text-brand-blue mb-4">The Cycle of Equity</h2>
+                <p class="text-4xl md:text-5xl font-light text-brand-navy serif italic">Turning dormant assets into community value.</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4">
+                <div class="flex-1 text-center">
+                    <div class="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6 border border-gray-100">
+                        <span class="text-4xl opacity-30">🎺</span>
+                    </div>
+                    <h4 class="font-bold text-brand-navy uppercase tracking-widest text-sm mb-2">The Silent Asset</h4>
+                    <p class="text-xs text-gray-400 max-w-[150px] mx-auto leading-relaxed">Unused instruments sitting in closets across Idaho.</p>
+                </div>
+                <div class="hidden md:block h-[2px] bg-gray-100 flex-grow mx-4"></div>
+                <div class="flex-1 text-center z-10">
+                    <div class="w-32 h-32 bg-white rounded-full flex flex-col items-center justify-center mx-auto mb-6 border-2 border-brand-blue/20 shadow-xl relative">
+                        <svg class="w-12 h-12 text-brand-blue mb-1" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                        <div class="text-[10px] font-bold text-brand-blue uppercase tracking-tighter">Your Gift</div>
+                    </div>
+                    <h4 class="font-bold text-brand-blue uppercase tracking-widest text-sm">Community Equity</h4>
+                    <p class="text-xs text-brand-blue/60 max-w-[150px] mx-auto mt-2 leading-relaxed">The bridge from "owned" to "shared" potential.</p>
+                </div>
+                <div class="hidden md:block h-[2px] bg-gray-100 flex-grow mx-4"></div>
+                <div class="flex-1 text-center">
+                    <div class="w-24 h-24 bg-brand-navy rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <span class="text-4xl">🎷</span>
+                    </div>
+                    <h4 class="font-bold text-brand-navy uppercase tracking-widest text-sm">Resonating Talent</h4>
+                    <p class="text-xs text-gray-400 max-w-[150px] mx-auto leading-relaxed">A student gifted the tool to build their future.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-white pt-32 pb-16 px-6">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-6xl md:text-8xl font-black mb-20 text-brand-navy tracking-tighter">Play your part.</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-left mb-32 max-w-6xl mx-auto">
+                <div class="p-12 bg-gray-50 rounded-3xl border border-gray-100 shadow-sm cursor-pointer hover:bg-white transition-colors group" onclick="openInstrumentModal()">
+                    <h3 class="font-black text-brand-blue mb-6 tracking-[0.3em] text-lg uppercase group-hover:text-brand-navy transition-colors">Donors</h3>
+                    <p class="text-gray-700 text-lg leading-relaxed font-medium">Your silent instrument is a future soloist's primary tool. We make the donation process seamless and professional.</p>
+                </div>
+                <div class="p-12 bg-gray-50 rounded-3xl border border-gray-100 shadow-sm">
+                    <h3 class="font-black text-brand-blue mb-6 tracking-[0.3em] text-lg uppercase">Technicians</h3>
+                    <p class="text-gray-700 text-lg leading-relaxed font-medium">Join our Authorized Repair Partner (ARP) network. Help us revive Idaho's musical heritage while growing your shop's impact.</p>
+                </div>
+                <div class="p-12 bg-gray-50 rounded-3xl border border-gray-100 shadow-sm">
+                    <h3 class="font-black text-brand-blue mb-6 tracking-[0.3em] text-lg uppercase">Educators</h3>
+                    <p class="text-gray-700 text-lg leading-relaxed font-medium">Nominate students who have the drive but lack the equipment. We bridge the gap so you can focus on building your ensemble.</p>
+                </div>
+            </div>
+            
+            <div class="pt-16 border-t border-gray-100">
+                <p class="font-bold text-gray-400 tracking-[0.5em] uppercase text-xs mb-6">ReTune Idaho | Nampa, Idaho</p>
+                <div class="flex flex-wrap justify-center gap-x-8 text-gray-500 text-sm font-semibold">
+                    <span>208-546-9446</span><span>•</span><span>hello@retuneidaho.org</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODALS -->
+    <div id="instrumentModal" class="modal-overlay" role="dialog" aria-modal="true">
+        <div class="bg-white w-full max-w-lg rounded-3xl p-8 shadow-2xl relative">
+            <button onclick="closeModals()" class="absolute top-6 right-6 text-gray-400 hover:text-gray-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h3 class="text-2xl font-bold text-brand-navy serif mb-2">Instrument Donation</h3>
+            <p class="text-sm text-gray-500 mb-6">Briefly describe the instrument. We'll handle the logistics.</p>
+            
+            <form id="instrumentForm" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" name="name" required placeholder="Name" class="bg-gray-50 rounded-xl p-3 text-sm outline-none">
+                    <input type="text" name="contact" placeholder="Email/Phone" required class="bg-gray-50 rounded-xl p-3 text-sm outline-none">
+                </div>
+                <input type="text" name="instrument" placeholder="Instrument Type (e.g. Flute)" required class="w-full bg-gray-50 rounded-xl p-3 text-sm outline-none">
+                <textarea name="notes" rows="3" placeholder="Notes (Condition, age, etc.)" class="w-full bg-gray-50 rounded-xl p-3 text-sm outline-none resize-none"></textarea>
+                <button type="submit" id="instrumentSubmitBtn" class="w-full bg-brand-navy text-white font-bold uppercase tracking-widest p-4 rounded-xl hover:bg-brand-blue">
+                    Submit Donation Info
+                </button>
+                <div id="instrumentStatus" class="hidden text-center p-3 rounded-xl text-sm font-bold mt-4"></div>
+            </form>
+        </div>
+    </div>
+
+    <div id="financialModal" class="modal-overlay" role="dialog" aria-modal="true">
+        <div class="bg-white w-full max-w-lg rounded-3xl p-8 shadow-2xl relative">
+            <button onclick="closeModals()" class="absolute top-6 right-6 text-gray-400 hover:text-gray-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h3 class="text-2xl font-bold text-brand-navy serif mb-2">Pledge Your Support</h3>
+            <p class="text-sm text-gray-500 mb-6">Pledges help us secure our nonprofit status and plan our launch.</p>
+            
+            <form id="moneyForm" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" name="name" required placeholder="Full Name" class="bg-gray-50 rounded-xl p-3 text-sm outline-none">
+                    <input type="email" name="email" required placeholder="Email Address" class="bg-gray-50 rounded-xl p-3 text-sm outline-none">
+                </div>
+                <div class="relative">
+                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-brand-blue font-bold">$</span>
+                    <input type="number" name="amount" placeholder="Pledge Amount" required class="w-full bg-gray-50 rounded-xl py-3 pl-8 pr-4 text-sm outline-none">
+                </div>
+                <button type="submit" id="moneySubmitBtn" class="w-full bg-brand-blue text-white font-bold uppercase tracking-widest p-4 rounded-xl hover:bg-blue-400">
+                    Submit Pledge
+                </button>
+                <div id="moneyStatus" class="hidden text-center p-3 rounded-xl text-sm font-bold mt-4"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase Implementation -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const firebaseConfig = JSON.parse(__firebase_config);
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'retune-idaho';
+        
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let currentUser = null;
+
+        const initAuth = async () => {
+            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                await signInWithCustomToken(auth, __initial_auth_token);
+            } else {
+                await signInAnonymously(auth);
+            }
+        };
+
+        onAuthStateChanged(auth, (u) => { currentUser = u; });
+        initAuth();
+
+        window.closeModals = () => {
+            document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none');
+            document.body.style.overflow = 'auto';
+        };
+
+        window.openInstrumentModal = () => {
+            document.getElementById('instrumentModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.openFinancialModal = () => {
+            document.getElementById('financialModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        };
+
+        const handleSubmit = async (formId, collectionName, btnId, statusId) => {
+            const form = document.getElementById(formId);
+            const btn = document.getElementById(btnId);
+            const status = document.getElementById(statusId);
+            
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!currentUser) return;
+                
+                btn.disabled = true;
+                const data = Object.fromEntries(new FormData(form));
+
+                try {
+                    await addDoc(collection(db, 'artifacts', appId, 'public', 'data', collectionName), {
+                        ...data,
+                        userId: currentUser.uid,
+                        submittedAt: serverTimestamp()
+                    });
+                    status.className = "text-center p-3 rounded-xl text-sm font-bold bg-green-50 text-green-600 mt-4";
+                    status.innerText = "Thank you! Information received.";
+                    status.classList.remove('hidden');
+                    setTimeout(closeModals, 2000);
+                } catch (err) {
+                    btn.disabled = false;
+                    status.className = "text-center p-3 rounded-xl text-sm font-bold bg-red-50 text-red-600 mt-4";
+                    status.innerText = "Error. Please try again.";
+                    status.classList.remove('hidden');
+                }
+            });
+        };
+
+        handleSubmit('waitlistForm', 'waitlist', 'waitlistBtn', 'waitlistStatus');
+        handleSubmit('instrumentForm', 'donations', 'instrumentSubmitBtn', 'instrumentStatus');
+        handleSubmit('moneyForm', 'pledges', 'moneySubmitBtn', 'moneyStatus');
+    </script>
+</body>
+</html>

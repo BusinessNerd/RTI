@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReTune Idaho | Reclaim. Repair. Resonate.</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --brand-navy: #000080;
+            --brand-blue: #0066CC;
+            --bone: #FDFBF7;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bone);
+            color: #111827;
+            scroll-behavior: smooth;
+        }
+        h1, h2, h3, .serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .text-brand-navy { color: var(--brand-navy); }
+        .text-brand-blue { color: var(--brand-blue); }
+        .bg-brand-navy { background-color: var(--brand-navy); }
+        .bg-brand-blue { background-color: var(--brand-blue); }
+        
+        .staff-container {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            width: 100%;
+            max-width: 300px;
+        }
+        .staff-line {
+            height: 1px;
+            background: #E5E7EB;
+            width: 100%;
+        }
+
+        .hero-banner {
+            background: #FFFFFF;
+            padding-top: 5rem;
+            padding-bottom: 7rem;
+        }
+
+        .mission-heading {
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+
+        .pulse-blue {
+            animation: pulse-blue 2s infinite;
+        }
+        @keyframes pulse-blue {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .matrix-container {
+            position: relative;
+            aspect-ratio: 1/1;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #f0f0f0;
+            border-radius: 8px;
+        }
+
+        .cycle-connector {
+            height: 2px;
+            background: repeating-linear-gradient(to right, #0066CC 0, #0066CC 5px, transparent 5px, transparent 10px);
+            flex-grow: 1;
+        }
+
+        .cycle-step {
+            transition: all 0.3s ease;
+        }
+        .cycle-step:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Modal Styles */
+        #donationModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 128, 0.4);
+            backdrop-filter: blur(4px);
+            z-index: 50;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-blue-100">
+
+    <!-- HERO SECTION -->
+    <header class="hero-banner px-6">
+        <div class="max-w-7xl mx-auto text-center">
+            
+            <!-- Centered Logo with Staff Lines -->
+            <div class="flex items-center justify-center gap-12 mb-20">
+                <div class="staff-container hidden md:flex">
+                    <div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div>
+                </div>
+                <div class="shrink-0">
+                    <svg width="220" height="100" viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
+                      <g font-family="'Inter', sans-serif" text-anchor="middle">
+                        <text x="200" y="80">
+                            <tspan font-weight="600" fill="#000080" font-size="94" letter-spacing="-4">Re</tspan>
+                            <tspan font-weight="400" fill="#0066CC" font-size="94" letter-spacing="-4">tune</tspan>
+                        </text>
+                        <text x="200" y="138" font-weight="500" fill="#9CA3AF" font-size="28" style="letter-spacing:16px;text-transform:uppercase">
+                          Idaho
+                        </text>
+                      </g>
+                    </svg>
+                </div>
+                <div class="staff-container hidden md:flex">
+                    <div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div>
+                </div>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <h1 class="mission-heading text-4xl md:text-5xl lg:text-6xl font-bold text-brand-navy">
+                    <span class="block">Empowering the Next</span>
+                    <span class="block">Generation of</span>
+                    <span class="block">Musicians Through</span>
+                    <span class="italic font-serif font-light text-brand-blue block mt-2">restoration and giving.</span>
+                </h1>
+                
+                <div class="h-[2px] w-20 bg-brand-navy mx-auto my-10"></div>
+                
+                <div class="flex flex-col items-center gap-8">
+                    <div class="flex justify-center items-center gap-x-6 md:gap-x-12 text-md md:text-xl uppercase tracking-[0.4em] font-extrabold text-brand-navy">
+                        <span>Reclaim</span>
+                        <span class="text-gray-200">/</span>
+                        <span>Repair</span>
+                        <span class="text-gray-200">/</span>
+                        <span>Resonate</span>
+                    </div>
+                    <button onclick="openModal()" class="bg-brand-navy text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-brand-blue transition-colors shadow-lg">
+                        Donate an Instrument
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- THE CYCLE OF EQUITY -->
+    <section class="py-24 px-6 bg-white border-y border-gray-100">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="text-lg md:text-xl font-black tracking-[0.5em] uppercase text-brand-blue mb-4">The Cycle of Equity</h2>
+                <p class="text-4xl md:text-5xl font-light text-brand-navy serif italic">Turning dormant assets into community value.</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4">
+                <div class="flex-1 text-center">
+                    <div class="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6 border border-gray-100">
+                        <span class="text-4xl opacity-30">🎺</span>
+                    </div>
+                    <h4 class="font-bold text-brand-navy uppercase tracking-widest text-sm mb-2">The Silent Asset</h4>
+                    <p class="text-xs text-gray-400 max-w-[150px] mx-auto">Unused instruments sitting in closets across Idaho.</p>
+                </div>
+
+                <div class="hidden md:block cycle-connector opacity-20"></div>
+
+                <div class="flex-1 text-center z-10">
+                    <div class="w-32 h-32 bg-white rounded-full flex flex-col items-center justify-center mx-auto mb-6 border-2 border-brand-blue/20 shadow-xl relative">
+                        <svg class="w-12 h-12 text-brand-blue mb-1" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                        <div class="text-[10px] font-bold text-brand-blue uppercase tracking-tighter">Your Donation</div>
+                    </div>
+                    <h4 class="font-bold text-brand-blue uppercase tracking-widest text-sm">Community Equity</h4>
+                    <p class="text-xs text-brand-blue/60 max-w-[150px] mx-auto mt-2">The bridge from "owned" to "shared" potential.</p>
+                </div>
+
+                <div class="hidden md:block cycle-connector opacity-20"></div>
+
+                <div class="flex-1 text-center">
+                    <div class="w-24 h-24 bg-brand-navy rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <span class="text-4xl">🎺</span>
+                    </div>
+                    <h4 class="font-bold text-brand-navy uppercase tracking-widest text-sm">Resonating Talent</h4>
+                    <p class="text-xs text-gray-400 max-w-[150px] mx-auto">A student gifted the tool to build their future.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIFECYCLE OF THE GIFT -->
+    <section class="py-24 px-6 bg-gray-50/50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-brand-navy serif mb-4">The Journey of a Gift</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">From a retail purchase to a community legacy—see how your donation creates a permanent loop of musical opportunity.</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                <div class="cycle-step bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center">
+                    <span class="text-2xl mb-3">🛒</span>
+                    <h5 class="text-[10px] font-black uppercase text-gray-400 mb-2">1. Origin</h5>
+                    <p class="text-xs font-semibold leading-tight">New instrument purchased or rented.</p>
+                </div>
+                <div class="cycle-step bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center">
+                    <span class="text-2xl mb-3">🎓</span>
+                    <h5 class="text-[10px] font-black uppercase text-gray-400 mb-2">2. Growth</h5>
+                    <p class="text-xs font-semibold leading-tight">Student graduates or stops playing.</p>
+                </div>
+                <div class="cycle-step bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center">
+                    <span class="text-2xl mb-3">📦</span>
+                    <h5 class="text-[10px] font-black uppercase text-gray-400 mb-2">3. The Pause</h5>
+                    <p class="text-xs font-semibold leading-tight">Instrument sits in a closet (The Silent Asset).</p>
+                </div>
+                <div class="cycle-step bg-brand-blue p-6 rounded-2xl shadow-lg flex flex-col items-center text-center text-white scale-110 z-10 cursor-pointer" onclick="openModal()">
+                    <span class="text-2xl mb-3">🤝</span>
+                    <h5 class="text-[10px] font-black uppercase text-blue-100 mb-2">4. Reclaim</h5>
+                    <p class="text-xs font-bold leading-tight">You donate to ReTune Idaho.</p>
+                </div>
+                <div class="cycle-step bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center">
+                    <span class="text-2xl mb-3">🛠️</span>
+                    <h5 class="text-[10px] font-black uppercase text-gray-400 mb-2">5. Repair</h5>
+                    <p class="text-xs font-semibold leading-tight">Restored by local Idaho technicians.</p>
+                </div>
+                <div class="cycle-step bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center">
+                    <span class="text-2xl mb-3">🎁</span>
+                    <h5 class="text-[10px] font-black uppercase text-gray-400 mb-2">6. Resonate</h5>
+                    <p class="text-xs font-semibold leading-tight">Gifted to a talented student in need.</p>
+                </div>
+                <div class="cycle-step bg-brand-navy p-6 rounded-2xl shadow-sm flex flex-col items-center text-center text-white">
+                    <span class="text-2xl mb-3">♾️</span>
+                    <h5 class="text-[10px] font-black uppercase text-blue-300 mb-2">7. Impact</h5>
+                    <p class="text-xs font-semibold leading-tight">The cycle continues for a new generation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE ACCESS GAP -->
+    <section class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+            <div>
+                <h2 class="text-4xl md:text-5xl font-bold mb-8 text-brand-navy">The Access Gap</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-5 bg-white border-l-4 border-brand-blue shadow-sm">
+                        <h4 class="text-xs font-black uppercase tracking-widest text-brand-blue mb-1">ReTune Gift</h4>
+                        <p class="text-[13px] text-gray-700 leading-snug">Zero cost to family. Professionally vetted. Full classroom playability.</p>
+                    </div>
+                    <div class="p-5 bg-gray-50 border-l-4 border-red-400">
+                        <h4 class="text-xs font-black uppercase tracking-widest text-red-400 mb-1">Retail Rent/Buy</h4>
+                        <p class="text-[13px] text-gray-500 leading-snug">Highest quality, but $500–$2,000 entry fee silences talent early.</p>
+                    </div>
+                    <div class="p-5 bg-gray-50 border-l-4 border-gray-300">
+                        <h4 class="text-xs font-black uppercase tracking-widest text-gray-400 mb-1">School Stock</h4>
+                        <p class="text-[13px] text-gray-500 leading-snug">Limited availability. Often requires frequent maintenance shared across years.</p>
+                    </div>
+                    <div class="p-5 bg-gray-50 border-l-4 border-orange-400">
+                        <h4 class="text-xs font-black uppercase tracking-widest text-orange-400 mb-1">Budget Online</h4>
+                        <p class="text-[13px] text-gray-500 leading-snug">Low cost, but "Instrument-Shaped Objects" that are often unrepairable.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="matrix-container shadow-2xl p-12 flex flex-col">
+                <div class="flex-1 flex border-l-2 border-b-2 border-gray-200 relative overflow-visible">
+                    <div class="absolute bottom-[-2px] left-0 right-[-30px] h-[2px] bg-gray-200">
+                        <div class="absolute right-0 top-1/2 -translate-y-1/2 w-0 h-0 border-l-[8px] border-l-gray-200 border-y-[5px] border-y-transparent"></div>
+                    </div>
+                    <div class="absolute left-[-2px] bottom-0 top-[-30px] w-[2px] bg-gray-200">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-0 border-b-[8px] border-b-gray-200 border-x-[5px] border-x-transparent"></div>
+                    </div>
+                    <div class="absolute -left-16 top-1/2 -translate-y-1/2 -rotate-90 text-xs font-black uppercase tracking-widest text-gray-400">Playability</div>
+                    <div class="absolute -bottom-12 left-1/2 -translate-x-1/2 text-xs font-black uppercase tracking-widest text-gray-400">Total Cost to Family</div>
+                    <div class="absolute top-[8%] left-[8%] flex flex-col items-center z-20">
+                        <div class="w-20 h-20 bg-brand-navy border-4 border-brand-blue rounded-full mb-3 pulse-blue flex items-center justify-center text-white shadow-xl">
+                            <span class="text-3xl">✦</span>
+                        </div>
+                        <span class="text-[14px] font-black text-brand-navy uppercase text-center leading-tight">ReTune Gift</span>
+                    </div>
+                    <div class="absolute top-[12%] right-[8%] text-center">
+                        <div class="w-12 h-12 bg-red-400 rounded-full mx-auto mb-3 shadow-md"></div>
+                        <span class="text-[12px] font-black text-gray-500 uppercase tracking-tight">Retail Shop</span>
+                    </div>
+                    <div class="absolute top-[45%] left-[25%] text-center opacity-60">
+                        <div class="w-10 h-10 bg-gray-300 rounded-full mx-auto mb-3"></div>
+                        <span class="text-[12px] font-black text-gray-500 uppercase tracking-tight">School Stock</span>
+                    </div>
+                    <div class="absolute bottom-[10%] right-[15%] text-center">
+                        <div class="w-12 h-12 bg-orange-400 rounded-full mx-auto mb-3 shadow-md"></div>
+                        <span class="text-[12px] font-black text-gray-500 uppercase tracking-tight">Budget Online</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER SECTIONS -->
+    <footer class="bg-white border-t border-gray-100 pt-32 pb-16 px-6">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-6xl md:text-8xl font-black mb-20 text-brand-navy tracking-tighter">Play your part.</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-left mb-32 max-w-6xl mx-auto">
+                <div class="p-12 bg-gray-50 rounded-3xl border border-gray-100 shadow-sm cursor-pointer hover:bg-white transition-colors" onclick="openModal()">
+                    <h3 class="font-black text-brand-blue mb-6 tracking-[0.3em] text-lg uppercase">Donors</h3>
+                    <p class="text-gray-700 text-lg leading-relaxed font-medium">Your silent instrument is a future soloist's primary tool. We make the donation process seamless, secure, and tax-deductible.</p>
+                </div>
+                <div class="p-12 bg-gray-50 rounded-3xl border border-gray-100 shadow-sm">
+                    <h3 class="font-black text-brand-blue mb-6 tracking-[0.3em] text-lg uppercase">Technicians</h3>
+                    <p class="text-gray-700 text-lg leading-relaxed font-medium">Join our Authorized Repair Partner (ARP) network. Help us revive Idaho's musical heritage while growing your shop's community impact.</p>
+                </div>
+                <div class="p-12 bg-gray-50 rounded-3xl border border-gray-100 shadow-sm">
+                    <h3 class="font-black text-brand-blue mb-6 tracking-[0.3em] text-lg uppercase">Educators</h3>
+                    <p class="text-gray-700 text-lg leading-relaxed font-medium">Nominate students who have the drive but lack the equipment. We bridge the financial gap so you can focus on building your ensemble.</p>
+                </div>
+            </div>
+            
+            <div class="pt-16 border-t border-gray-100">
+                <div class="mb-12">
+                    <svg width="200" height="80" viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg" class="mx-auto">
+                        <g font-family="'Inter', sans-serif" text-anchor="middle">
+                            <text x="200" y="80">
+                                <tspan font-weight="600" fill="#000080" font-size="90" letter-spacing="-4">Re</tspan>
+                                <tspan font-weight="400" fill="#0066CC" font-size="90" letter-spacing="-4">tune</tspan>
+                            </text>
+                            <text x="200" y="130" font-weight="500" fill="#9CA3AF" font-size="24" style="letter-spacing:14px;text-transform:uppercase">
+                              Idaho
+                            </text>
+                        </g>
+                    </svg>
+                </div>
+                <p class="font-bold text-gray-400 tracking-[0.5em] uppercase text-xs mb-6">ReTune Idaho | Nampa, Idaho</p>
+                <div class="flex flex-wrap justify-center gap-x-8 text-gray-500 text-sm font-semibold">
+                    <span>208-546-9446</span><span>•</span><span>hello@retuneidaho.org</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- DONATION MODAL -->
+    <div id="donationModal" role="dialog" aria-modal="true">
+        <div class="bg-white w-full max-w-lg rounded-3xl p-8 shadow-2xl relative">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-400 hover:text-gray-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h3 class="text-2xl font-bold text-brand-navy serif mb-2">Instrument Donation</h3>
+            <p class="text-sm text-gray-500 mb-6">Tell us about the instrument you'd like to ReTune.</p>
+            
+            <form id="donationForm" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-black uppercase text-gray-400 mb-1">Your Name</label>
+                        <input type="text" name="name" required class="w-full bg-gray-50 border-0 rounded-xl p-3 text-sm focus:ring-2 focus:ring-brand-blue outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black uppercase text-gray-400 mb-1">Email / Phone</label>
+                        <input type="text" name="contact" required class="w-full bg-gray-50 border-0 rounded-xl p-3 text-sm focus:ring-2 focus:ring-brand-blue outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-gray-400 mb-1">Instrument Type</label>
+                    <input type="text" name="instrument" placeholder="e.g. Trumpet, Violin" required class="w-full bg-gray-50 border-0 rounded-xl p-3 text-sm focus:ring-2 focus:ring-brand-blue outline-none">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-gray-400 mb-1">Condition/Notes</label>
+                    <textarea name="notes" rows="3" class="w-full bg-gray-50 border-0 rounded-xl p-3 text-sm focus:ring-2 focus:ring-brand-blue outline-none resize-none"></textarea>
+                </div>
+                <button type="submit" id="submitBtn" class="w-full bg-brand-navy text-white font-bold uppercase tracking-widest p-4 rounded-xl hover:bg-brand-blue transition-colors disabled:opacity-50">
+                    Submit Donation Info
+                </button>
+                <div id="formStatus" class="hidden text-center p-3 rounded-xl text-sm font-bold"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Environment Variables
+        const firebaseConfig = JSON.parse(__firebase_config);
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'retune-idaho';
+        
+        // Init Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let user = null;
+
+        // Auth Logic
+        const initAuth = async () => {
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            } catch (error) {
+                console.error("Auth failed:", error);
+            }
+        };
+
+        onAuthStateChanged(auth, (u) => {
+            user = u;
+        });
+
+        initAuth();
+
+        // UI Handlers
+        window.openModal = () => {
+            document.getElementById('donationModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeModal = () => {
+            document.getElementById('donationModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            document.getElementById('donationForm').reset();
+            document.getElementById('formStatus').classList.add('hidden');
+        };
+
+        // Form Submission
+        document.getElementById('donationForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!user) {
+                showStatus("Please wait for authentication...", "bg-yellow-100 text-yellow-700");
+                return;
+            }
+
+            const submitBtn = document.getElementById('submitBtn');
+            const formData = new FormData(e.target);
+            
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Sending...";
+
+            try {
+                // RULE 1: Use specific path structure
+                const collectionRef = collection(db, 'artifacts', appId, 'public', 'data', 'donations');
+                
+                await addDoc(collectionRef, {
+                    name: formData.get('name'),
+                    contact: formData.get('contact'),
+                    instrument: formData.get('instrument'),
+                    notes: formData.get('notes'),
+                    submittedAt: serverTimestamp(),
+                    userId: user.uid
+                });
+
+                showStatus("Thank you! We'll be in touch.", "bg-green-100 text-green-700");
+                setTimeout(closeModal, 2000);
+            } catch (err) {
+                console.error(err);
+                showStatus("Error submitting. Please try again.", "bg-red-100 text-red-700");
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Submit Donation Info";
+            }
+        });
+
+        function showStatus(msg, classes) {
+            const el = document.getElementById('formStatus');
+            el.className = `p-3 rounded-xl text-sm font-bold ${classes}`;
+            el.innerText = msg;
+            el.classList.remove('hidden');
+        }
+    </script>
+
+</body>
+</html>
