@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retune Idaho | Reclaim. Repair. Resonate.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root { --brand-navy: #000080; --brand-blue: #0066CC; --bone: #FDFBF7; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bone); color: #111827; scroll-behavior: smooth; }
+        h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+        .text-brand-navy { color: var(--brand-navy); }
+        .text-brand-blue { color: var(--brand-blue); }
+        .bg-brand-navy { background-color: var(--brand-navy); }
+        .bg-brand-blue { background-color: var(--brand-blue); }
+        
+        .staff-line { height: 1px; background: #E5E7EB; width: 100%; }
+        .staff-container { display: flex; flex-direction: column; gap: 7px; width: 100%; max-width: 300px; }
+
+        .hero-banner { background: #FFFFFF; padding-top: 3rem; padding-bottom: 7rem; }
+        .logo-text { font-size: clamp(3rem, 8vw, 94px); letter-spacing: -4px; }
+
+        .modal-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0, 0, 128, 0.4); backdrop-filter: blur(8px);
+            z-index: 1000; align-items: center; justify-content: center; padding: 1rem;
+        }
+
+        #toast {
+            visibility: hidden; min-width: 250px; background-color: var(--brand-navy);
+            color: #fff; text-align: center; border-radius: 50px; padding: 16px;
+            position: fixed; z-index: 2000; left: 50%; bottom: 30px;
+            transform: translateX(-50%); font-size: 14px; font-weight: 800;
+        }
+        #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
+
+        button:active { transform: scale(0.98); }
+        .swag-card { transition: all 0.3s ease; }
+        .swag-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
+
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+    </style>
+</head>
+<body class="antialiased selection:bg-blue-100">
+
+    <div id="toast">Link Copied!</div>
+
+    <div class="bg-brand-navy text-white py-3 px-6 relative z-50">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-4 text-xs md:text-sm">
+            <div class="flex items-center gap-2 font-bold tracking-widest uppercase">
+                <span>✨ Established 2026 ✨</span>
+            </div>
+            <div id="waitlistWrapper" class="flex items-center">
+                <form id="waitlistForm" class="flex bg-white/10 rounded-full p-1 border border-white/20 w-full max-w-sm">
+                    <input type="email" name="email" required placeholder="Join the launch list" class="bg-transparent border-0 px-4 py-1 text-xs w-full focus:ring-0 outline-none placeholder:text-white/50">
+                    <button type="submit" id="waitlistBtn" class="bg-white text-brand-navy px-4 py-1 rounded-full font-black uppercase text-[10px] hover:bg-brand-blue hover:text-white transition-colors">Join</button>
+                </form>
+                <div id="waitlistStatus" class="hidden font-bold text-blue-300 ml-4 animate-pulse uppercase text-[10px]">Added!</div>
+            </div>
+        </div>
+    </div>
+
+    <header class="hero-banner px-6">
+        <div class="max-w-7xl mx-auto text-center">
+            <div class="flex items-center justify-center gap-12 mb-20">
+                <div class="staff-container hidden lg:flex"><div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div></div>
+                <div class="shrink-0 flex flex-col items-center">
+                    <div class="logo-text leading-none flex items-baseline"><span class="font-bold text-brand-navy">Re</span><span class="font-normal text-brand-blue">tune</span></div>
+                    <div class="text-gray-400 font-medium tracking-[1em] uppercase text-xl mt-2 ml-[1em]">Idaho</div>
+                </div>
+                <div class="staff-container hidden lg:flex"><div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div><div class="staff-line"></div></div>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl md:text-6xl font-bold text-brand-navy leading-tight">
+                    Empowering the Next Generation of Musicians Through <span class="italic font-serif font-light text-brand-blue block mt-2">restoration and giving.</span>
+                </h1>
+                <div class="h-[2px] w-20 bg-brand-navy mx-auto my-10"></div>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button onclick="openModal('donationModal')" class="bg-brand-navy text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-brand-blue transition-all shadow-lg">Donate an Instrument</button>
+                    <button onclick="openModal('financialModal')" class="bg-white text-brand-navy border-2 border-brand-navy px-8 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-gray-50 transition-all">Support Financially</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-24 px-6 bg-white border-y border-gray-100">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-lg font-black tracking-[0.5em] uppercase text-brand-blue mb-4">The Cycle of Equity</h2>
+            <p class="text-3xl md:text-5xl font-light text-brand-navy serif italic mb-16">Turning unplayed instruments into community value.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-10 rounded-[2.5rem] border border-gray-100 text-left">
+                    <div class="text-4xl mb-6">🎷</div>
+                    <h4 class="font-bold text-brand-navy uppercase tracking-widest text-sm mb-4">01. Reclaim</h4>
+                    <p class="text-gray-600 text-sm">We take forgotten instruments out of closets and provide a tax-deductible path for donors.</p>
+                </div>
+                <div class="bg-brand-navy p-10 rounded-[2.5rem] text-white text-left shadow-xl">
+                    <div class="text-4xl mb-6">🛠️</div>
+                    <h4 class="font-bold text-blue-300 uppercase tracking-widest text-sm mb-4">02. Repair</h4>
+                    <p class="text-white/80 text-sm">We hire Idaho repair partners to restore every instrument to professional standards.</p>
+                </div>
+                <div class="bg-gray-50 p-10 rounded-[2.5rem] border border-gray-100 text-left">
+                    <div class="text-4xl mb-6">🎵</div>
+                    <h4 class="font-bold text-brand-navy uppercase tracking-widest text-sm mb-4">03. Resonate</h4>
+                    <p class="text-gray-600 text-sm">We gift restored instruments to students who have the drive but lack the means.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 bg-gray-50/50">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="swag-card bg-white p-10 rounded-3xl border border-gray-100 flex flex-col">
+                <span class="text-brand-blue font-black text-4xl">$50</span>
+                <h4 class="text-2xl font-bold text-brand-navy mt-2 mb-4">Studio Partner</h4>
+                <p class="text-gray-600 text-sm mb-8 flex-grow">Covers reeds, oil, and cork grease for a student's first year.</p>
+                <div class="pt-6 border-t border-gray-100 text-[11px] font-black uppercase text-brand-blue">Gift: Polishing Cloth</div>
+            </div>
+            <div class="swag-card bg-white p-10 rounded-3xl border-2 border-brand-blue flex flex-col relative shadow-xl">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-blue text-white text-[10px] font-black px-6 py-2 uppercase rounded-full">Most Impact</div>
+                <span class="text-brand-blue font-black text-4xl">$250</span>
+                <h4 class="text-2xl font-bold text-brand-navy mt-2 mb-4">Ensemble Partner</h4>
+                <p class="text-gray-600 text-sm mb-8 flex-grow">Funds a full professional restoration by an Idaho technician.</p>
+                <div class="pt-6 border-t border-gray-100 text-[11px] font-black uppercase text-brand-blue">Gift: Retune Trucker Hat</div>
+            </div>
+            <div class="swag-card bg-white p-10 rounded-3xl border border-gray-100 flex flex-col">
+                <span class="text-brand-blue font-black text-4xl">$1,000</span>
+                <h4 class="text-2xl font-bold text-brand-navy mt-2 mb-4">Conservatory Partner</h4>
+                <p class="text-gray-600 text-sm mb-8 flex-grow">Seeds our Scholarship Fund for private lessons and equipment.</p>
+                <div class="pt-6 border-t border-gray-100 text-[11px] font-black uppercase text-brand-blue">Gift: Limited Edition Hoodie</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-6">
+        <div class="max-w-4xl mx-auto text-center bg-brand-navy p-12 rounded-[3rem] text-white shadow-2xl">
+            <h3 class="text-3xl font-bold serif italic mb-6">Spread the Word</h3>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button onclick="shareLink()" class="bg-white text-brand-navy px-8 py-4 rounded-full font-black uppercase text-xs">Send to a Friend</button>
+                <button onclick="copyToClipboard()" class="border-2 border-white/30 text-white px-8 py-4 rounded-full font-black uppercase text-xs">Copy Site Link</button>
+            </div>
+        </div>
+    </section>
+
+    <div id="donationModal" class="modal-overlay" onclick="closeModals(event)">
+        <div class="bg-white w-full max-w-lg rounded-3xl p-8 shadow-2xl relative" onclick="event.stopPropagation()">
+            <h3 class="text-2xl font-bold text-brand-navy mb-6">Instrument Donation</h3>
+            <form id="donationForm" class="space-y-4">
+                <input type="text" name="name" required placeholder="Name" class="w-full bg-gray-50 rounded-xl p-4 outline-none">
+                <input type="text" name="contact" required placeholder="Email/Phone" class="w-full bg-gray-50 rounded-xl p-4 outline-none">
+                <input type="text" name="instrument" placeholder="Instrument Type" required class="w-full bg-gray-50 rounded-xl p-4 outline-none">
+                <button type="submit" id="submitBtn" class="w-full bg-brand-navy text-white font-bold uppercase p-4 rounded-xl">Submit Info</button>
+                <div id="formStatus" class="hidden text-center p-3 rounded-xl text-xs font-bold mt-4"></div>
+            </form>
+        </div>
+    </div>
+
+    <div id="financialModal" class="modal-overlay" onclick="closeModals(event)">
+        <div class="bg-white w-full max-w-lg rounded-3xl p-8 shadow-2xl relative" onclick="event.stopPropagation()">
+            <h3 class="text-2xl font-bold text-brand-navy mb-6">Pledge Support</h3>
+            <form id="moneyForm" class="space-y-4">
+                <input type="text" name="name" required placeholder="Name" class="w-full bg-gray-50 rounded-xl p-4 outline-none">
+                <input type="email" name="email" required placeholder="Email" class="w-full bg-gray-50 rounded-xl p-4 outline-none">
+                <input type="number" name="amount" placeholder="Pledge Amount ($)" required class="w-full bg-gray-50 rounded-xl p-4 outline-none">
+                <button type="submit" id="moneySubmitBtn" class="w-full bg-brand-blue text-white font-bold uppercase p-4 rounded-xl">Pledge Now</button>
+                <div id="moneyStatus" class="hidden text-center p-3 rounded-xl text-xs font-bold mt-4"></div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // 1. GLOBAL UI HELPERS
+        window.openModal = (id) => { document.getElementById(id).style.display = 'flex'; };
+        window.closeModals = (e) => { 
+            if (!e || e.target.classList.contains('modal-overlay')) {
+                document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none');
+            }
+        };
+
+        window.copyToClipboard = () => {
+            navigator.clipboard.writeText(window.location.href);
+            const t = document.getElementById("toast");
+            t.className = "show";
+            setTimeout(() => { t.className = ""; }, 3000);
+        };
+
+        window.shareLink = async () => {
+            if (navigator.share) {
+                try { await navigator.share({ title: 'Retune Idaho', url: window.location.href }); } 
+                catch (err) { window.copyToClipboard(); }
+            } else { window.copyToClipboard(); }
+        };
+
+        // 2. FIREBASE & FORM HANDLING
+        const isOffline = typeof __firebase_config === 'undefined';
+        let db, auth;
+
+        if (!isOffline) {
+            const app = initializeApp(JSON.parse(__firebase_config));
+            auth = getAuth(app);
+            db = getFirestore(app);
+            signInAnonymously(auth);
+        }
+
+        const setupForm = (formId, btnId, statusId, collectionName) => {
+            const form = document.getElementById(formId);
+            if (!form) return;
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = document.getElementById(btnId);
+                const status = document.getElementById(statusId);
+                
+                btn.disabled = true;
+                btn.innerText = "Processing...";
+
+                try {
+                    if (!isOffline && db) {
+                        const data = Object.fromEntries(new FormData(form));
+                        await addDoc(collection(db, 'artifacts', 'retune-idaho', 'public', 'data', collectionName), {
+                            ...data,
+                            timestamp: serverTimestamp()
+                        });
+                    }
+
+                    // Success UI
+                    status.innerText = "Success! Thank you for your support.";
+                    status.className = "block text-center p-3 rounded-xl text-xs font-bold bg-green-50 text-green-600 mt-4 uppercase";
+                    status.classList.remove('hidden');
+                    
+                    if (formId === 'waitlistForm') {
+                        form.classList.add('hidden');
+                    } else {
+                        setTimeout(() => {
+                            window.closeModals();
+                            form.reset();
+                            status.classList.add('hidden');
+                            btn.disabled = false;
+                            btn.innerText = "Submit";
+                        }, 2500);
+                    }
+                } catch (err) {
+                    console.error(err);
+                    btn.disabled = false;
+                    status.innerText = "Error. Please try again.";
+                    status.className = "block text-center p-3 rounded-xl text-xs font-bold bg-red-50 text-red-600 mt-4 uppercase";
+                    status.classList.remove('hidden');
+                }
+            });
+        };
+
+        setupForm('donationForm', 'submitBtn', 'formStatus', 'donations');
+        setupForm('moneyForm', 'moneySubmitBtn', 'moneyStatus', 'pledges');
+        setupForm('waitlistForm', 'waitlistBtn', 'waitlistStatus', 'waitlist');
+    </script>
+</body>
+</html>
